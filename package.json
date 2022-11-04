@@ -8,7 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wlsf82/cypress-basico-v2.git"
+    "url": "git+https://github.com/wlsf82/cypress-basico-v2.git",
+    "cy:open": "cypress open",
+    "test": "cypress run"
   },
   "keywords": [
     "Testing",
