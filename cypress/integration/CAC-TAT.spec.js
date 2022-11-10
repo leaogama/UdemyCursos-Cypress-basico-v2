@@ -16,7 +16,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('input#lastName').should('be.visible').type('Leão').should('have.value', 'Leão')
         cy.get('input#email').should('be.visible').type('leaogama@gmail.com').should('have.value', 'leaogama@gmail.com')
         cy.get('#open-text-area').should('be.visible').type(z, { delay: 0 }).should('have.value', z)
-        cy.get('.button').should('be.visible').click()
+        cy.contains('button', 'enviar', { matchCase: false }).should('be.visible').click()
         cy.get('.success').should('be.visible').should('contain.text', 'sucesso')
     })
     it('ex02 exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
@@ -25,7 +25,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('input#lastName').should('be.visible').type('Leão').should('have.value', 'Leão')
         cy.get('input#email').should('be.visible').type('leaogama@gmailcom').should('have.value', 'leaogama@gmailcom')
         cy.get('#open-text-area').should('be.visible').type(z, { delay: 0 }).should('have.value', z)
-        cy.get('.button').should('be.visible').click()
+        cy.contains('button', 'enviar', { matchCase: false }).should('be.visible').click()
         cy.get('.error').should('be.visible').should('contain.text', 'campos')
     })
 
@@ -47,7 +47,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#phone-checkbox').click()
         cy.get('#phone').should('be.visible').type('abcdfgh/@#').should("have.value", '')
         cy.get('#open-text-area').should('be.visible').type(z, { delay: 1 }).should('have.value', z)
-        cy.get('.button').should('be.visible').click()
+        cy.contains('button', 'enviar', { matchCase: false }).should('be.visible').click()
         cy.get('.error').should('be.visible').should('contain.text', 'campos')
 
     })
@@ -64,9 +64,43 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     })
     it('ex06 exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
 
-        cy.get('.button').should('be.visible').click()
+        cy.contains('button', 'enviar', { matchCase: false }).should('be.visible').click()
         cy.get('.error').should('be.visible').should('contain.text', 'campos')
     })
 
+    it('ct07-Envia o formulario com sucesso usando comando customizado.', () => {
+        let z = "Gostaria de receber uma copia do meu contrato"
+        cy.fillMandatoryFieldsAndSubmit(z)
+        cy.get('.success').should('be.visible').should('contain.text', 'sucesso')
+    });
 
+    it('ct08-Seleciona um produto (YouTube) por seu TEXTO', () => {
+        const product = 'YouTube'
+        cy.get('#product').select(product)
+        cy.get('#product').should('have.value', 'youtube')
+    });
+
+    it('ct09-Seleciona um produto (Mentoria) por seu VALOR', () => {
+        const product = 'mentoria'
+        cy.get('#product').select(product)
+        cy.get('#product').should('have.value', product)
+    });
+
+    it('ct10-Seleciona um produto (Blog) por seu índice', () => {
+        const product = 1
+        cy.get('#product').select(product)
+        cy.get('#product').should('have.value', 'blog')
+    });
+
+    it.only('seleciona toodos os elementos do tipo radio', () => {
+        cy.get('[type="radio"]').check()
+        cy.get('[type="checkbox"]').check('email')
+    })
+
+
+    // cy.get('div').contains('capital sentence', { matchCase: false })
+    // cy.contains('Delete User').click().contains('Yes, Delete!').click()
+    //cy.get('#password')
+    //   .type(Cypress.env('user_password'), { log: false })
+    // cy.contains('Login').click()
 })

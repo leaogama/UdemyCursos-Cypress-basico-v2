@@ -23,3 +23,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('fillMandatoryFieldsAndSubmit', function(txtAjuda){
+    let z = txtAjuda
+    cy.get('input#firstName').should('be.visible').type('Joao').should('have.value', 'Joao')
+    cy.get('input#lastName').should('be.visible').type('Leão').should('have.value', 'Leão')
+    cy.get('input#email').should('be.visible').type('leaogama@gmail.com').should('have.value', 'leaogama@gmail.com')
+    cy.get('#open-text-area').should('be.visible').type(z, { delay: 0 }).should('have.value', z)
+    cy.contains('button', 'enviar', {matchCase: false}).should('be.visible').click()
+    
+
+})
