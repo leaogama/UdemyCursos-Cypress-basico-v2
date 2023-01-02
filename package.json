@@ -5,11 +5,8 @@
   "main": "src/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    
-      "cy:open": "cypress open",
-      "testar": "cypress run"
-    
-
+    "cy:open": "cypress open",
+    "testar": "cypress run"
   },
   "repository": {
     "type": "git",
@@ -28,6 +25,6 @@
   "license": "MIT",
   "homepage": "https://github.com/wlsf82/cypress-basico-v2#readme",
   "devDependencies": {
-    "cypress": "^9.5.1"
+    "cypress": "^9.7.0"
   }
 }
