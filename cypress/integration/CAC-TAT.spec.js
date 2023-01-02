@@ -92,11 +92,27 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#product').should('have.value', 'blog')
     });
 
-    it.only('seleciona toodos os elementos do tipo radio', () => {
-        cy.get('[type="radio"]').check()
+    it('seleciona toodos os elementos do tipo radio', () => {
+        // cy.get('[type="radio"]').check()
+        //  cy.get('[type="radio"]').should('contain.value', 'feedback')
+
+
         cy.get('[type="checkbox"]').check('email')
     })
 
+    it('Marca o tipo de atendimento "feedback"', function () {
+        cy.get('input[type="radio"][value="feedback"').check().should('have.value','feedback')
+
+    })
+
+    it.only('Marca cada tipo de atendimento', ()=> {
+        cy.get('input[type="radio"]')
+        .should('have.length', 3)
+        .each(function($radio){
+            cy.wrap($radio).check().should('be.checked')
+        })
+
+    })
 
     // cy.get('div').contains('capital sentence', { matchCase: false })
     // cy.contains('Delete User').click().contains('Yes, Delete!').click()
