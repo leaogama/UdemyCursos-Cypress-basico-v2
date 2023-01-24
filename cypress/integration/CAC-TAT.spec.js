@@ -124,67 +124,79 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('input[type="checkbox"]').each(function ($cb) {
             cy.wrap($cb).check()
             cy.wrap($cb).should('be.checked')
-            
+
         }).last().uncheck()
     });
 
     it('ct14b- Marca ambos os checkbox e depois desmarca a ultima', () => {
         cy.get('input[type="checkbox"]')
-        .check()
-        .should('be.checked')
-        .last()
-        .uncheck()
-        .should('not.be.checked')
+            .check()
+            .should('be.checked')
+            .last()
+            .uncheck()
+            .should('not.be.checked')
     });
     it('ct15- desarca ambos os checkbox ', () => {
         cy.get('input[type="checkbox"]').each(function ($cb) {
             cy.wrap($cb).uncheck()
             cy.wrap($cb).should('not.be.checked')
-            
+
         }).last().uncheck()
     });
 
     it('ct16- outra forma de marcar all checkbox', () => {
         cy.get('input[type="checkbox"]').as('contato').check()
-        cy.get('@contato').each(ch =>{
+        cy.get('@contato').each(ch => {
             expect(ch[0].checked).to.equal(true)
         })
     })
 
     it('ct17- seleciona um arquivo da pasta fixture', () => {
         cy.get('input[type="file"]').selectFile('cypress/fixtures/example.json')
-        .then(input => {
-            console.log(input)
-            expect(input[0].files[0].name).to.equal('example.json')
-        })
+            .then(input => {
+                console.log(input)
+                expect(input[0].files[0].name).to.equal('example.json')
+            })
     });
 
     it('ct18- seleciona um arquivo da pasta fixture simulando drag-and-drop', () => {
         cy.get('input[type="file"]')
-        .selectFile('cypress/fixtures/example.json', {action:'drag-drop'})
-        .then(input => {
-            console.log(input)
-            expect(input[0].files[0].name).to.equal('example.json')
-        })
+            .selectFile('cypress/fixtures/example.json', { action: 'drag-drop' })
+            .then(input => {
+                console.log(input)
+                expect(input[0].files[0].name).to.equal('example.json')
+            })
     });
 
     it('ct19-seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', () => {
-        cy.fixture("example.json", { encoding:null }).as('exampleFile')
+        cy.fixture("example.json", { encoding: null }).as('exampleFile')
         cy.get('input[type="file"]')
-        .selectFile('@exampleFile')
-        .then($input => {
-            console.log($input)
-            expect($input[0].files[0].name).to.equal('example.json')
-        })
+            .selectFile('@exampleFile')
+            .then($input => {
+                console.log($input)
+                expect($input[0].files[0].name).to.equal('example.json')
+            })
     });
 
-    it.only('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', () => {
-        cy.get('#privacy a')
+    it('ct20-verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', () => {
+        cy.get('#privacy a').should('have.attr', 'target', '_blank')
     });
+    it('ct21-acessa a página da política de privacidade removendo o target e então clicanco no link', () => {
+        cy.get('#privacy a')
+            .invoke('removeAttr', 'target')
+            .click()
+        cy.contains('Talking About Testing').should('be.visible')
+    });
+    it.only('ct22-testa a página da política de privavidade de forma independente', () => {
+        cy.visit('./src/privacy.html')
+        cy.contains('Talking About Testing').should('be.visible')
+    });
+
+
     // it.only('ct15 - desmarca último checkbox', () => {
     //     cy.get('input[type="checkbox"]').last()
     //     })
-    
+
 
     // cy.get('div').contains('capital sentence', { matchCase: false })
     // cy.contains('Delete User').click().contains('Yes, Delete!').click()
