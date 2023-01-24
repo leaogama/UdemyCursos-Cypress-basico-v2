@@ -28,3 +28,9 @@ Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
 ___
 
 Este é mais um curso da [**Escola Talking About Testing**](https://udemy.com/user/walmyr).
+
+remover pasta node-modules:
+#add 'node_modules' to .gitignore file
+git rm -r --cached node_modules
+git commit -m 'Remove the now ignored directory node_modules'
+git push origin <branch-name>
