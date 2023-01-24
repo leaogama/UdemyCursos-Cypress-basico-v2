@@ -193,14 +193,5 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     });
 
 
-    // it.only('ct15 - desmarca último checkbox', () => {
-    //     cy.get('input[type="checkbox"]').last()
-    //     })
-
-
-    // cy.get('div').contains('capital sentence', { matchCase: false })
-    // cy.contains('Delete User').click().contains('Yes, Delete!').click()
-    //cy.get('#password')
-    //   .type(Cypress.env('user_password'), { log: false })
-    // cy.contains('Login').click()
+ 
 })
